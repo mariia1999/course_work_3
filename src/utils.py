@@ -26,21 +26,22 @@ def format_date(date: str):
     return date_format.strptime("%d.%m.%Y")
 
 
-def mask_number(card: str):
-    """Зашифровка счетов"""
+def mask_account(account: str):
+    """защифровка счета"""
+    masked_account = "**" + account[-4:]
+    return f"Счет {masked_account}"
+
+
+def mask_card(card: str):
+    """Зашифровка карты"""
     card = card.split()
     card_number = card.pop()
     card_name = " ".join(card)
-    if card_name.lower() == "счет":
-        secret_number = "**" + card_number[-4:]
-    else:
-        secret_number = f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
-        return f"{card_name} {secret_number}"
+    secret_number = f"{card_number[:4]} {card_number[4:6]}** **** {card_number[-4:]}"
+    return f"{card_name} {secret_number}"
 
 
-print(mask_number("Visa Classic 6831982476737658"))
-print(mask_number("Счет 38976430693692818358"))
-print(mask_number("Visa 6831982476737658"))
+
 
 
 
